@@ -4,7 +4,7 @@ module SprocketsApplication
   
   class << self
     def routes(map)
-      map.resource(:sprockets,:only=>[:show])
+      map.resource(:sprockets)
     end
     
     def source
@@ -21,11 +21,11 @@ module SprocketsApplication
 
     protected
       def secretary
-        @secretary ||= Sprockets::Secretary.new(configuration.merge(:root => Rails.root))
+        @secretary ||= Sprockets::Secretary.new(configuration.merge(:root => RAILS_ROOT))
       end
     
       def configuration
-        YAML.load(IO.read(Rails.root.join("config", "sprockets.yml"))) || {}
+        YAML.load(IO.read(File.join(RAILS_ROOT, "config", "sprockets.yml"))) || {}
       end
 
       def concatenation
